@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './taskitem.css'
 
 export default function TaskItem({ id, title, taskState}){
-    
     const [isEditing, setIsEditing] = useState(false);
     const [editableTitle, setEditableTitle] = useState(title);
 
@@ -12,14 +11,14 @@ export default function TaskItem({ id, title, taskState}){
         setEditableTitle(newTitle);
     };
 
-    const onKeyDown = (event) =>{
-        if (event.keyCode === 13){
+    const onKeyUp = (event) =>{
+        if (event.key === 'Enter'){
             setIsEditing(false); 
         }
     };
 
     if (isEditing){
-        return <input type="text" value={editableTitle} onChange={onTitleChange} onInput = {onKeyDown}/>
+        return <input type="text" value={editableTitle} onChange={onTitleChange} onKeyUp = {onKeyUp}/>
     } else {
         return <div onClick={(e) => {setIsEditing(true)}}>{editableTitle}</div>;
     }
